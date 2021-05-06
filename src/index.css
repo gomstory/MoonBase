@@ -7,7 +7,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+}
+
+main {
+  padding: 20px;
+}
+
+.layout {
+display: grid;
+grid-template-columns: 150px auto;
 }
