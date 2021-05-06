@@ -1,6 +1,7 @@
-export function exchange_thbt_moon(thbt, moonRate, sold_n, nextRate) {
+export function exchange_thbt_moon(thbt, moonRate, sold_n) {
     let money = thbt;
     let totalCoin = 0
+    let nextIncreaseRate =  Math.ceil((Math.floor(sold_n) + 1)/10) * 10;
 
     while (money > 0) {
         let coin = 0;
@@ -8,39 +9,66 @@ export function exchange_thbt_moon(thbt, moonRate, sold_n, nextRate) {
         if (money < moonRate) {
             coin = money/moonRate
             money -= (coin * moonRate) 
-        } else if (money%moonRate == 0) {
-            coin = money/moonRate
-            money -= (coin * moonRate) 
-        } else if (money%moonRate > 0) {
+        } else if (money >= moonRate) {
             coin++;
-            money = money%moonRate;
-        } else if (money%moonRate < 0) {
-            coin = money/moonRate;
-            money -= (coin * moonRate) 
+            money -= moonRate;    
         }
         
         if (coin) {
-            sold_n += coin;
+            sold_n += 1;
             totalCoin += coin;
         }
 
-        if (sold_n >= nextRate) {
+        if (sold_n >= nextIncreaseRate) {
             moonRate += (moonRate * 10) / 100
-            nextRate += 10;
-        }       
-        
+            nextIncreaseRate += 10;
+        }
     }
     
-
-    return {
-        totalCoin,
-        sold_n,
-        moonRate,
-        nextRate
-    };
-
+    return totalCoin
 }
 
-export function exchange_moon_thbt(moon, moonRate) {
-    return moon * moonRate
+export function exchange_moon_thbt(moon, moonRate, sold_n) {
+    let coin = moon;
+    let totalThbt = 0;
+    let nextIncreaseRate =  Math.ceil((Math.floor(sold_n) + 1)/10) * 10;
+
+    while (coin > 0) {
+        let thbt = 0;
+
+        if (coin < 1) {
+            thbt = coin * moonRate;
+            coin = 0;
+        } else if (coin >= 1) {
+            thbt = 1 * moonRate
+            coin = coin - 1;
+        }
+
+        if (thbt) {
+            sold_n += 1;
+            totalThbt += thbt
+        }
+
+        if (sold_n >= nextIncreaseRate) {
+            moonRate += (moonRate * 10) / 100
+            nextIncreaseRate += 10;
+        }
+    }
+
+    return totalThbt;
+}
+
+export function calculateMoonRate(sold_n) {
+    let rate = 50;
+
+    while (sold_n > 0) {
+        if (sold_n >= 10) {
+            sold_n -= 10;
+            rate += (rate *  10/ 100 )
+        } else {
+            sold_n = 0
+        }
+    }
+
+    return rate;
 }

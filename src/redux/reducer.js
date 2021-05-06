@@ -1,31 +1,41 @@
 import { combineReducers } from "redux";
-import { BUY, INITIAL } from "./action-types";
+import { BUY_MOON, INITIALIZE, UPDATE_RATE } from "./action-types";
 
 const initialState = {
     totalSold: 0,
     moonLeft: 1000,
-    nextIncreaseRate: 10,
     moonRate: 50,
     thbtBalance: 100,
-    history: [1,2,3,4]
+    history: []
 };
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case INITIAL: {
+        case INITIALIZE: {
             return {
-                total_sold: 0,
-                moon_rate: 50,
-                thbt_balance: 50
+                totalSold: 0,
+                moonRate: 50,
+                thbtBalance: 50
             }
         }
-        case BUY: {
-            const { id, content } = action.payload;
+
+        case BUY_MOON: {
             return {
                 ...state,
-                total_sold: state.total_sold++,
-            };
+                totalSold: state.totalSold + action.payload.moon,
+                moonLeft: (state.moonLeft - action.payload.moon),
+                thbtBalance: (state.thbtBalance - action.payload.thbt),
+                history: [...state.history, action.payload]
+            }
         }
+
+        case UPDATE_RATE: {
+            return {
+                ...state,
+                moonRate: action.payload.rate
+            }
+        }
+
 
         default:
             return state;

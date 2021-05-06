@@ -1,11 +1,15 @@
-import { BUY } from "./action-types";
+import { BUY_MOON, UPDATE_RATE } from "./action-types";
 
 let nexId = 0;
 
-export const buyCoin = content => ({
-    type: BUY,
+export const buy = (payload) => ({
+    type: BUY_MOON,
+    payload: payload
+});
+
+export const updateRate = (rate) => ({
+    type: UPDATE_RATE,
     payload: {
-        id: ++nexId,
-        content
+        rate
     }
 });

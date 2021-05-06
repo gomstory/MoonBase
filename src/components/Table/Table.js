@@ -3,12 +3,12 @@ import './Table.css';
 const Table = (props) => {
     let list = props.list.map(it => {
         return (
-            <tr key={it}>
-                <td>2021-04-01 10:00</td>
-                <td>AAAA</td>
-                <td>100</td>
-                <td>2</td>
-                <td>1 MOON = 50 THBT | 0.02</td>
+            <tr key={it.id}>
+                <td>{it.date}</td>
+                <td>{it.id}</td>
+                <td>{it.thbt}</td>
+                <td>{it.moon}</td>
+                <td>1 MOON = {it.rate.moonRate} THBT | {it.rate.slipage}</td>
             </tr>
         )
     })
