@@ -20,7 +20,12 @@ You will also see any lint errors in the console.
 
 ## Deploy App
 
-Run `npm run build`
+Run these command will generate build folder:
+
+```
+npm install
+npm run build
+```
 
 The command will builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
