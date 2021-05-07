@@ -1,7 +1,7 @@
 import './App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import BuyPage from './pages/BuyPage';
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import HistoryPage from './pages/HistoryPage';
 import Layout from './components/Layout/Layout'
 import socketIOClient from "socket.io-client";
@@ -10,7 +10,7 @@ import { updateMoon, updateUser } from './redux/actions';
 const ENDPOINT = "http://127.0.0.1:3001";
 
 function App(props) {
-  useEffect(() => {
+  useEffect((props) => {
     const socket = socketIOClient(ENDPOINT);
     
     socket.on("info", data => {

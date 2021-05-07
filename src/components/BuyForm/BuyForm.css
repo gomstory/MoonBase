@@ -28,4 +28,5 @@
 
   a.back {
     text-decoration: underline;
+    cursor: pointer;
   }

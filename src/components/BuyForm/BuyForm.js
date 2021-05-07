@@ -1,10 +1,8 @@
 import { Component } from "react";
-import { exchange_thbt_moon, exchange_moon_thbt, calculateMoonRate } from '../../helpers/exchange'
+import { exchange_thbt_moon, exchange_moon_thbt } from '../../helpers/exchange'
 import BuySuccess from "./BuySuccess";
 import Error from './Error'
 import './BuyForm.css';
-import { BUY_MOON } from '../../redux/action-types'
-import { buy, addHistory, updateRate } from '../../redux/actions'
 import axios from 'axios';
 
 class BuyForm extends Component {
@@ -67,7 +65,7 @@ class BuyForm extends Component {
         let content = "";
         let status = this.state.buySuccess;
 
-        if (status == 'init' && this.props.moonLeft <= 0) {
+        if (status === 'init' && this.props.moonLeft <= 0) {
             status = 'sold';
         }
 
@@ -116,6 +114,10 @@ class BuyForm extends Component {
                 content = <BuySuccess moon={this.state.moonAmount} thbt={this.state.thbtAmount} reset={this.reset} />
                 break;
             }
+
+            default:
+                content = "";
+                break;
         }
 
         return content;

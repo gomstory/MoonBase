@@ -1,4 +1,4 @@
-import { BUY_MOON, UPDATE_INFO, UPDATE_MOON_INFO, UPDATE_RATE, UPDATE_USER } from "./action-types";
+import { BUY_MOON, UPDATE_MOON_INFO, UPDATE_USER } from "./action-types";
 
 const initialState = {
     id: 0,
@@ -9,7 +9,7 @@ const initialState = {
     history: []
 };
 
-export default function(state = initialState, action) {
+export default function reducer(state = initialState, action) {
     switch (action.type) {
         case BUY_MOON: {
             return {
