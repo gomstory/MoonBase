@@ -1,10 +1,10 @@
 const BuySuccess = (props) => {
     return (
         <div className="container">
-            <h1>SUCCESS</h1>
-            <p>You bought <span data-atd="success-moon-label">{props.moon}</span> MOON </p>
-            <p>With <span data-atd="success-thbt-label">{props.thbt}</span> THBT</p>
-            <a data-atd="back-btn" href="#" onClick={props.reset}>back to buy</a>
+            <h1 className="header">SUCCESS</h1>
+            <p className="msg">You bought <span data-atd="success-moon-label">{props.moon}</span> MOON </p>
+            <p className="msg">with <span data-atd="success-thbt-label">{props.thbt}</span> THBT</p>
+            <a className="back" data-atd="back-btn" href="#" onClick={props.reset}>back to Buy</a>
         </div>
     )
 }

@@ -6,15 +6,20 @@ import HistoryPage from './pages/HistoryPage';
 import Layout from './components/Layout/Layout'
 import socketIOClient from "socket.io-client";
 import { connect } from 'react-redux';
-import { updateInfo } from './redux/actions';
+import { updateMoon, updateUser } from './redux/actions';
 const ENDPOINT = "http://127.0.0.1:3001";
 
 function App(props) {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
+    
     socket.on("info", data => {
-      props.dispatch(updateInfo(data));
+      props.dispatch(updateMoon(data));
     });
+
+    socket.on("user", user => {
+      props.dispatch(updateUser(user))
+    })
   }, []);
 
   return (

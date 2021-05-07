@@ -1,10 +1,11 @@
 import { Component } from "react";
 import { exchange_thbt_moon, exchange_moon_thbt, calculateMoonRate } from '../../helpers/exchange'
 import BuySuccess from "./BuySuccess";
+import Error from './Error'
 import './BuyForm.css';
 import { BUY_MOON } from '../../redux/action-types'
 import { buy, addHistory, updateRate } from '../../redux/actions'
-import axios, { axs} from 'axios';
+import axios from 'axios';
 
 class BuyForm extends Component {
     constructor(props) {
@@ -46,11 +47,12 @@ class BuyForm extends Component {
 
     onBuy() {
         axios.post('http://localhost:3001/exchange', {
+            id: this.props.id,
             thbtAmount: +this.state.thbtAmount
         }).then(resp => {
             this.setState({ buySuccess: 'success' })
         }).catch(() => {
-            this.setState({ buySuccess: 'faild' })
+            this.setState({ buySuccess: 'fail' })
         })
     }
 
@@ -63,8 +65,24 @@ class BuyForm extends Component {
     }
 
     render() {
-        let content = this.state.buySuccess === 'init' ?
-            (<div className='container'>
+        let content = "";
+        let status = this.state.buySuccess;
+
+        if (status == 'init' && this.props.moonLeft <= 0) {
+            status = 'sold';
+        }
+
+        switch(status) {
+            case 'sold': {
+                content = (
+                    <div className="container">
+                        <h2 className="msg">MOON has been sold</h2>
+                    </div>)
+                break;
+            }
+
+            case 'init': {
+                content = (<div className='container'>
                 <h1 className="header">MOON = <label data-atd="moon-price-label">{this.props.moonRate}</label> THBT</h1>
                 <p className="balance">You have <label data-atd="balance-label">{this.state.thbtBalance}</label> THBT</p>
 
@@ -86,7 +104,20 @@ class BuyForm extends Component {
 
                     <button onClick={this.onBuy} data-atd="buy-btn" type="submit">Buy</button>
                 </div>
-            </div>) : <BuySuccess moon={this.state.moonAmount} thbt={this.state.thbtAmount} reset={this.reset} />
+            </div>)
+                break;
+            }
+
+            case 'fail': {
+                content = <Error moon={this.state.moonAmount} thbt={this.state.thbtAmount} reset={this.reset} />
+                break;
+            }
+
+            case 'success': {
+                content = <BuySuccess moon={this.state.moonAmount} thbt={this.state.thbtAmount} reset={this.reset} />
+                break;
+            }
+        }
 
         return content;
     }
