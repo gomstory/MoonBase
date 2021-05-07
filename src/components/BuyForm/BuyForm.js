@@ -4,7 +4,7 @@ import BuySuccess from "./BuySuccess";
 import Error from './Error'
 import './BuyForm.css';
 import axios from 'axios';
-import { ENDPOINT } from "../../../config";
+import { ENDPOINT } from "../../config";
 
 class BuyForm extends Component {
     constructor(props) {

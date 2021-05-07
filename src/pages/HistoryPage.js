@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import { connect } from "react-redux";
-import { ENDPOINT } from "../../config";
+import { ENDPOINT } from "../config";
 import Table from "../components/Table/Table";
 
 
