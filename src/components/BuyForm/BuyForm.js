@@ -4,13 +4,14 @@ import BuySuccess from "./BuySuccess";
 import './BuyForm.css';
 import { BUY_MOON } from '../../redux/action-types'
 import { buy, addHistory, updateRate } from '../../redux/actions'
+import axios, { axs} from 'axios';
 
 class BuyForm extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            buySuccess: false,
+            buySuccess: 'init',
             moonRate: props.moonRate,
             thbtBalance: props.thbtBalance,
             thbtAmount: 0,
@@ -34,7 +35,7 @@ class BuyForm extends Component {
 
     exchange_moon_to_thbt(event) {
         const moonAmount = event.target.value;
-        const { totalSold, moonRate  } = this.props;
+        const { totalSold, moonRate } = this.props;
         const thbtAmount = exchange_moon_thbt(moonAmount, moonRate, totalSold);
         this.setState({ moonAmount: moonAmount, thbtAmount: thbtAmount });
     }
@@ -44,35 +45,25 @@ class BuyForm extends Component {
     }
 
     onBuy() {
-        const date = new Date();
-        const totalSold = this.props.totalSold + (+this.state.moonAmount);
-        const newRate = calculateMoonRate(totalSold);
-        const info = {
-            date: date.toISOString(),
-            id: date.getTime(),
-            thbt: +this.state.thbtAmount,
-            moon: +this.state.moonAmount,
-            rate: {
-                moonRate: this.props.moonRate,
-                slipage: this.state.slipage
-            }
-        }
-
-        this.props.dispatch(buy(info));
-        this.props.dispatch(updateRate(newRate));
-        this.setState({ buySuccess: true })
+        axios.post('http://localhost:3001/exchange', {
+            thbtAmount: +this.state.thbtAmount
+        }).then(resp => {
+            this.setState({ buySuccess: 'success' })
+        }).catch(() => {
+            this.setState({ buySuccess: 'faild' })
+        })
     }
 
     reset() {
-        this.setState({ 
-            buySuccess: false,
+        this.setState({
+            buySuccess: 'init',
             thbtAmount: 0,
             moonAmount: 0
         })
     }
 
     render() {
-        let content = this.state.buySuccess === false ?
+        let content = this.state.buySuccess === 'init' ?
             (<div className='container'>
                 <h1 className="header">MOON = <label data-atd="moon-price-label">{this.props.moonRate}</label> THBT</h1>
                 <p className="balance">You have <label data-atd="balance-label">{this.state.thbtBalance}</label> THBT</p>
@@ -90,7 +81,7 @@ class BuyForm extends Component {
 
                     <div className="form-control">
                         <label htmlFor='amount_moon'>Slippage Tolerance (%)</label>
-                        <input data-atd="slippage-input" onChange={this.slipageChange} type="text"  value={this.state.slipage} />
+                        <input data-atd="slippage-input" onChange={this.slipageChange} type="text" value={this.state.slipage} />
                     </div>
 
                     <button onClick={this.onBuy} data-atd="buy-btn" type="submit">Buy</button>

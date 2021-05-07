@@ -1,4 +1,4 @@
-import { BUY_MOON, UPDATE_RATE } from "./action-types";
+import { BUY_MOON, UPDATE_INFO, UPDATE_RATE } from "./action-types";
 
 let nexId = 0;
 
@@ -12,4 +12,9 @@ export const updateRate = (rate) => ({
     payload: {
         rate
     }
+});
+
+export const updateInfo = (info) => ({
+    type: UPDATE_INFO,
+    payload: info
 });

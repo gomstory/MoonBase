@@ -1,5 +1,4 @@
-import { combineReducers } from "redux";
-import { BUY_MOON, INITIALIZE, UPDATE_RATE } from "./action-types";
+import { BUY_MOON, UPDATE_INFO, UPDATE_RATE } from "./action-types";
 
 const initialState = {
     totalSold: 0,
@@ -11,11 +10,10 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case INITIALIZE: {
+        case UPDATE_INFO: {
             return {
-                totalSold: 0,
-                moonRate: 50,
-                thbtBalance: 50
+                ...state,
+                ...action.payload
             }
         }
 

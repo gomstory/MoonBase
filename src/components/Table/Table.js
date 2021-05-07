@@ -8,7 +8,7 @@ const Table = (props) => {
                 <td>{it.id}</td>
                 <td>{it.thbt}</td>
                 <td>{it.moon}</td>
-                <td>1 MOON = {it.rate.moonRate} THBT | {it.rate.slipage}</td>
+                <td>1 MOON = {it.rate.moonRate} THBT | {it.rate.exchangeRate}</td>
             </tr>
         )
     })
