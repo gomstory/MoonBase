@@ -5,3 +5,7 @@ a {
 a.active {
   text-decoration-line: underline;
 }
+
+nav > ul li {
+  list-style-type: none;
+}
