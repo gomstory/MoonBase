@@ -14,7 +14,6 @@ class BuyForm extends Component {
         this.state = {
             buySuccess: 'init',
             moonRate: props.moonRate,
-            thbtBalance: props.thbtBalance,
             thbtAmount: 0,
             moonAmount: 0,
             slipage: 5
@@ -76,7 +75,7 @@ class BuyForm extends Component {
             case 'sold': {
                 content = (
                     <div className="container">
-                        <h2 className="msg">MOON has been sold</h2>
+                        <h2 className="msg">all MOON coins had sold out</h2>
                     </div>)
                 break;
             }
@@ -84,7 +83,7 @@ class BuyForm extends Component {
             case 'init': {
                 content = (<div className='container'>
                 <h1 className="header">MOON = <label data-atd="moon-price-label">{this.props.moonRate}</label> THBT</h1>
-                <p className="balance">You have <label data-atd="balance-label">{this.state.thbtBalance}</label> THBT</p>
+                <p className="balance">You have <label data-atd="balance-label">{this.props.thbtBalance}</label> THBT</p>
 
                 <div className="form-group">
                     <div className="form-control">
