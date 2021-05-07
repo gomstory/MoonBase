@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import { connect } from "react-redux";
+import { ENDPOINT } from "../../config";
 import Table from "../components/Table/Table";
 
 
@@ -14,7 +15,7 @@ class HistoryPage extends Component {
 
     componentDidMount() {
         const id = this.props.id
-        id && axios.get(`http://localhost:3001/history/${id}`)
+        id && axios.get(`${ENDPOINT}/history/${id}`)
         .then(resp => {
             this.setState({ history: resp.data })
         })

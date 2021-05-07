@@ -4,6 +4,7 @@ import BuySuccess from "./BuySuccess";
 import Error from './Error'
 import './BuyForm.css';
 import axios from 'axios';
+import { ENDPOINT } from "../../../config";
 
 class BuyForm extends Component {
     constructor(props) {
@@ -43,7 +44,7 @@ class BuyForm extends Component {
     }
 
     onBuy() {
-        axios.post('http://localhost:3001/exchange', {
+        axios.post(`${ENDPOINT}/exchange`, {
             id: this.props.id,
             thbtAmount: +this.state.thbtAmount
         }).then(resp => {

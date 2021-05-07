@@ -7,7 +7,7 @@ import Layout from './components/Layout/Layout'
 import socketIOClient from "socket.io-client";
 import { connect } from 'react-redux';
 import { updateMoon, updateUser } from './redux/actions';
-const ENDPOINT = "http://127.0.0.1:3001";
+import { ENDPOINT } from '../config';
 
 function App(props) {
   useEffect(() => {
