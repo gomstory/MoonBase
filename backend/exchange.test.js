@@ -56,13 +56,13 @@ describe('Should callculate Moon Rate correcly', () =>  {
     expect(moonRate).toBe(55);
   });
 
-  if ("When 20 of MOON sold, then the price will be 60.5 THBT", () =>  {
+  test("When 20 of MOON sold, then the price will be 60.5 THBT", () =>  {
     const totalSold = 20;
     const moonRate = calculateMoonRate(totalSold);
     expect(moonRate).toBe(60.5);
   });
 
-  if ("When 30 of MOON sold, then the price will be 66.55 THBT", () =>  {
+  test("When 30 of MOON sold, then the price will be 66.55 THBT", () =>  {
     const totalSold = 30;
     const moonRate = calculateMoonRate(totalSold);
     expect(moonRate).toBe(66.55);
