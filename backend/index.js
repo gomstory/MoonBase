@@ -79,7 +79,7 @@ app.post('/exchange', async (req, res) => {
 
     // Emit Moon rate realtime
     io.emit('info', moonInfo);
-    io.in(user.id).emit('user', user);
+    io.in(user.socket).emit('user', user);
 
     return res.sendStatus(200); 
 })
@@ -104,19 +104,34 @@ app.get('/ask', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    const data = new Date();
-    const user = {
-        id: socket.id,
-        thbtBalance: 100
-    };
-    
-    socket.emit('user', user);
-    socket.emit('info', moonInfo);
-    users.set(socket.id, user);
-    
-    // Socket has disconnected, remove the user
-    socket.on('disconnect', () => {
-        users.delete(socket.id);
+    // Create new user
+    socket.on('new_user', () => {
+        const id = new Date().getTime();
+        const user = {
+            id: id,
+            thbtBalance: 100,
+            socket: socket.id
+        };
+        
+        users.set(user.id, user);
+        socket.emit('user', user);
+        socket.emit('info', moonInfo);
+    })
+
+    // Existing user refresh page
+    socket.on('current_user', (id) => {
+        const user = users.get(+id);
+        if (user) {
+            user.thbtBalance = 100;
+            user.socket = socket.id;
+            users.set(id, user);
+            
+            socket.emit('user', user);
+            socket.emit('info', moonInfo);
+        } else {
+            // Can't find user due to server restart.
+            socket.emit('clear')
+        }
     })
 });
 

@@ -12,14 +12,27 @@ import { ENDPOINT } from './config';
 function App(props) {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
+    const userId = sessionStorage.getItem('userId');
+
+    if (userId) {
+      socket.emit('current_user', userId)
+    } else {
+      socket.emit('new_user')
+    }
     
     socket.on("info", data => {
       props.dispatch(updateMoon(data));
-    });
+    })
 
     socket.on("user", user => {
-      console.log('Generate UserID: ', user.id)
+      console.log('User ID:', user.id, 'Socket:', user.socket)
       props.dispatch(updateUser(user))
+      sessionStorage.setItem('userId', user.id)
+    })
+
+    socket.on("clear", () => {
+      sessionStorage.removeItem('userId')
+      socket.emit('new_user')
     })
   }, []);
 

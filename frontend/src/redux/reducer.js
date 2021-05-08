@@ -2,10 +2,11 @@ import { BUY_MOON, UPDATE_MOON_INFO, UPDATE_USER } from "./action-types";
 
 const initialState = {
     id: 0,
+    socket: '',
     totalSold: 0,
     moonLeft: 1000,
-    moonRate: 50,
-    thbtBalance: 100,
+    moonRate: 0,
+    thbtBalance: 0,
     history: []
 };
 
