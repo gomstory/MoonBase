@@ -7,6 +7,7 @@ MoonBase was bootstrapped with [Create React App](https://github.com/facebook/cr
 
 > **Note: System will work properly when API for MoonBase Application is running, See /backend/README.md for installing.**
 
+> Due to time limitation unit test was cover only in backend part.
 
 ## Run App
 
@@ -33,17 +34,17 @@ npm run build
 ```
 
 The command will builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
+## How to use MoonBase app
 
-## How to use MoonBase
+There are 2 tabs in when you running app:
 
 #### `Buy Tab`
 
 1. Click `buy` tab.
-2. Add amount to buy in `Amount to buy (THBT)` input.
+2. Add amount at `Amount to buy (THBT)` input.
 3. Application will automatic callculate MOON coin in `Amount MOON` input, coin is depend on current MOON rate.
-4. Press `buy` button to buy coin, the history will be shown in history tab
+4. Press `buy` button to buy coin, buying history will be shown in history tab
 5. if complete, Application will redirect to Success page.
 6. if not, Application will redirect to Error page.
 

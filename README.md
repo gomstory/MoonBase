@@ -1,19 +1,22 @@
 # MoonBase Repository
 
-This repository will seperate 2 folders: `backend` and `frontend`, each folder have their own README.md construction, please read to install individually.
+This repository will seperate 2 folders: `frontend` and `backend`, each folder have their own README.md construction, please read to install individually.
 
-## Run App using Docker
+## Quick run using Docker
 
-The quickly way to run the app is runs following command to deploy application to Docker
+The quickly way to run the app is runs following command in terminal:
 
 ```
 docker-compose up --build
 ```
 
-Docker will serve 2 containers that consist `fronend` and `backend`.
+Docker will create and run 2 containers, it consist `fronend` and `backend`.
 
-After Docker is running:
+When Docker is running:
 
-for `frontend` please go to [`http://localhost:3000`](http://localhost:3000`).
+For `frontend` please go to [`http://localhost:3000`](http://localhost:3000`).
 
-for `backend` please go to [`http://localhost:3000`](http://localhost:3000`).
+For `backend` please go to [`http://localhost:3000`](http://localhost:3000`).
+
+
+Any question please reach me in [GomStory](https://github.com/gomstory) repository.
