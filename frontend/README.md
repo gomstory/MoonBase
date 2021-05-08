@@ -1,7 +1,12 @@
 # MoonBase Application
 
+
 MoonBase is cryptocurrency exchange website that help user exchange THBT to MOON coin.
 MoonBase was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
+> **Note: System will work properly when API for MoonBase Application is running, See /backend/README.md for installing.**
+
 
 ## Run App
 
@@ -45,4 +50,3 @@ It correctly bundles React in production mode and optimizes the build for the be
 #### `History Tab`
 1. Click to `history` tab
 2. Buying history will be shown in table, history order by Date and Time descending.
-

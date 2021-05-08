@@ -20,6 +20,25 @@ These command will be install node_modules and start API in [http://localhost:30
 Uses to exchange THBT curency to MOON coin.
 
 
-(GET) `/history/:id`
+(GET) `/ask`
 
-Uses to get buying history from given user id.
+Uses to get Moon rate, 
+If set param `thb` will calculate to `moon` rate
+If set param `moon` will calculate to `thb` rate
+
+
+## Available Socket
+
+Socket.io uses to control realtime data such as `moonRate`, `history`.
+
+#### `new_user`
+
+Fire from client to request to generate new user
+
+#### `current_user`
+
+Fire from client to request existing user id, system will return existing user.
+
+#### `info`
+
+Fire from server to all users when `moonRate` and `history` is updated
