@@ -1,31 +1,14 @@
-import axios from "axios";
 import { Component } from "react";
 import { connect } from "react-redux";
-import { ENDPOINT } from "../config";
 import Table from "../components/Table/Table";
 
 
 class HistoryPage extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            history: []
-        }
-    }
-
-    componentDidMount() {
-        const id = this.props.id
-        id && axios.get(`${ENDPOINT}/history/${id}`)
-        .then(resp => {
-            this.setState({ history: resp.data })
-        })
-    }
-
     render() {
         return (
             <div>
                 <h3>MOON left {this.props.moonLeft} MOON</h3>
-                <Table list={this.state.history} />
+                <Table list={this.props.history} />
             </div>
         )
     }
@@ -34,7 +17,7 @@ class HistoryPage extends Component {
 function mapStateToProps(state) {
     return {
         moonLeft: state.moonLeft,
-        id: state.id
+        history: state.history
     };
 }
 

@@ -18,6 +18,7 @@ function App(props) {
     });
 
     socket.on("user", user => {
+      console.log('Generate UserID: ', user.id)
       props.dispatch(updateUser(user))
     })
   }, []);

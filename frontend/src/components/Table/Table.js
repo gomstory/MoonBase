@@ -3,7 +3,7 @@ import './Table.css';
 const Table = (props) => {
     let list = props.list.map(it => {
         return (
-            <tr key={it.id}>
+            <tr key={it.date}>
                 <td>{it.date}</td>
                 <td>{it.id}</td>
                 <td>{it.thbt}</td>

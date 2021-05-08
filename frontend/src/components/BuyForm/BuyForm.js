@@ -13,9 +13,9 @@ class BuyForm extends Component {
         this.state = {
             buySuccess: 'init',
             moonRate: props.moonRate,
-            thbtAmount: 0,
-            moonAmount: 0,
-            slipage: 5
+            thbtAmount: '',
+            moonAmount: '',
+            slipage: ''
         }
 
         this.exchange_thbt_to_moon = this.exchange_thbt_to_moon.bind(this);
@@ -26,17 +26,29 @@ class BuyForm extends Component {
     }
 
     exchange_thbt_to_moon(event) {
-        const thbtAmount = event.target.value;
-        const { totalSold, moonRate } = this.props;
-        const totalCoin = exchange_thbt_moon(thbtAmount, moonRate, totalSold);
-        this.setState({ moonAmount: totalCoin, thbtAmount: thbtAmount });
+        const thbtAmount = +event.target.value
+
+        if (thbtAmount) {
+            thbtAmount && axios.get(`${ENDPOINT}/ask`, { params: { thbt: thbtAmount }})
+            .then(resp => {
+                this.setState({ moonAmount: resp.data.moon, thbtAmount: resp.data.thbt });
+            })
+        } else {
+            this.setState({ moonAmount: '', thbtAmount: '' });
+        }
     }
 
     exchange_moon_to_thbt(event) {
-        const moonAmount = event.target.value;
-        const { totalSold, moonRate } = this.props;
-        const thbtAmount = exchange_moon_thbt(moonAmount, moonRate, totalSold);
-        this.setState({ moonAmount: moonAmount, thbtAmount: thbtAmount });
+        const moonAmount = +event.target.value
+
+        if (moonAmount) {
+            axios.get(`${ENDPOINT}/ask`, { params: { moon: moonAmount }})
+            .then(resp => {
+                this.setState({ moonAmount: resp.data.moon, thbtAmount: resp.data.thbt });
+            })
+        } else {
+            this.setState({ moonAmount: '', thbtAmount: '' });
+        }
     }
 
     slipageChange() {
